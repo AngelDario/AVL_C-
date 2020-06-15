@@ -7,6 +7,7 @@ using namespace std;
 
 struct NODE {
 	int valor;
+	int peso;
 	NODE* nodes[2];
 
 	NODE(int _valor) : valor(_valor) {
