@@ -11,6 +11,7 @@ struct NODE {
 	NODE* nodes[2];
 
 	NODE(int _valor) : valor(_valor) {
+		peso = 0;
 		nodes[0] = nodes[1] = 0;
 	}
 };
@@ -31,11 +32,27 @@ public:
 		return *p != 0;
 	}
 
+	bool find(int x, NODE**& p, NODE**& recorrido) {
+		p = &m_root;
+		int i = 0;
+		recorrido[i] = *p ;
+
+		while (*p && (*p)->valor != x) {
+			p = &((*p)->nodes[x > (*p)->valor]);
+			i++;
+			recorrido[i] = *p;
+		}
+		return *p != 0;
+	}
+
 	bool insert(int x) {
 		NODE** p;
-		if (find(x, p)) {
+		NODE** recorrido = new NODE* [100];
+
+		if (find(x, p, recorrido)) {
 			return 0;
 		}
+
 		*p = new NODE(x);
 		return 1;
 	}
